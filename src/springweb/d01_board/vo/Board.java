@@ -9,8 +9,8 @@ public class Board {
 	private String content;
 	private String pass;
 	private String writer;
-	private int readCount;
-	private Date regDate;
+	private int readcount;
+	private Date regdate;
 	private String email;
 	public int getNo() {
 		return no;
@@ -48,17 +48,17 @@ public class Board {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public int getReadCount() {
-		return readCount;
+	public int getReadcount() {
+		return readcount;
 	}
-	public void setReadCount(int readCount) {
-		this.readCount = readCount;
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
 	}
-	public Date getRegDate() {
-		return regDate;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public String getEmail() {
 		return email;
@@ -66,6 +66,8 @@ public class Board {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
 	
 	
 }

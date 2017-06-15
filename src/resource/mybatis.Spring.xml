@@ -10,8 +10,11 @@
 		<typeAlias alias="emp" type="springweb.z01_dto.Emp"/>
 		<typeAlias alias="dept" type="springweb.z01_dto.Dept"/>
 		<typeAlias alias="member" type="springweb.z01_dto.Member"/>
-		<typeAlias alias="empMulti" type="springweb.z01_dto.EmpMulti"/>
-		
+		<typeAlias alias="empMulti" type="springweb.z01_dto.EmpMulti"/>	
+		<typeAlias alias="board" type="springweb.d01_board.vo.Board"/>	
+		<typeAlias alias="schboard" type="springweb.d01_board.vo.Board_Sch"/>	
+		<typeAlias alias="quebank" type="springweb.d01_board.vo.Quebank"/>	
+		<typeAlias alias="schQuebank" type="springweb.d01_board.vo.Quebank_Sch"/>	
 		
 	</typeAliases>
 	<mappers>
@@ -19,5 +22,7 @@
 		<mapper resource="resource/EmpMapper.xml"/>
 		<mapper resource="resource/DeptMapper.xml"/>
 		<mapper resource="resource/MemberMapper.xml"/>
+		<mapper resource="resource/BoardMapper.xml"/>
+		<mapper resource="resource/QueBankMapper.xml"/>
 	</mappers>
 </configuration>

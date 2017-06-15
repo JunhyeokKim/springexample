@@ -14,34 +14,53 @@
 <script src="${path}/com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("select[name=queType]").val("${queSch.queType}").attr("selected","selected");
 
+		$("#schBtn").click(function(){
+			$("form").submit();
+			})
+		$("#regBtn").click(function(){
+			$(location).attr("href","http://localhost:5080/springweb/quebankList.do?method=insert");
+		})
 	})
 </script>
 </head>
 <body>
 	<center>
 		<h1>문제은행 게시판</h1>
-		<form method="post">
+		<form method="post" action="http://localhost:5080/springweb/quebankList.do?method=list">
 			<table>
 				<tr>
-					<td>문제</td>
+					<td colspan="2">문제</td>
 					<td><input type="text" name="que" value="${queSch.que }" /></td>
-					<td>정답</td>
-					<td><input type="text" name="corAnsw"
-						value="${queSch.corAnsw }" /></td>
 				</tr>
 				<tr>
-					<td>문제 유형</td>
-					<td><input type="text" name="queType"
-						value="${queSch.queType }" /></td>
-					<td></td>
-					<td></td>
+					<td colspan="2">문제 유형</td>
+					<td><select name="queType">
+						<option value="주관식">주관식</option>
+						<option value="서술형">서술형</option>
+						<option value="객관식">객관식</option>
+					</select></td>
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center"><input
-						type="submit" value="검색" style="width: 8%" /></td>
+						type="button" id="schBtn" value="검색" style="width: 8%" /><input
+						type="button" id="regBtn" value="등록" style="width: 8%" /></td>
 				</tr>
 			</table>
 		</form>
+		<table>
+		<tr>
+			<th>문제</th><th>정답</th><th>문제 유형</th>
+		</tr>
+		<c:forEach var="quebank" items="${list }">
+			<tr>
+			<td>${quebank.que }</td>
+			<td>${quebank.corAnsw }</td>
+			<td>${quebank.queType }</td>
+			</tr>
+		</c:forEach>
+			
+		</table>
 </body>
 </html>

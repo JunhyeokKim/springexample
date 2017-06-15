@@ -14,8 +14,12 @@
 <script src="${path}/com/jquery-1.10.2.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#schBtn").click(function(){
+		$("#schBtn").click(function() {
 			$("form").submit();
+		})
+		// 등록 버튼 클릭시
+		$("#regBtn").click(function() {
+			$(location).attr("href", "${path}/boardList.do?method=insert");
 		})
 
 	})
@@ -29,33 +33,47 @@
 			<table border>
 				<tr>
 					<td>제목</td>
-					<td><input type="text" name="subject" value="${empsch.subject }" /></td>
+					<td><input type="text" name="subject"
+						value="${empsch.subject }" /></td>
 					<td>작성자</td>
-					<td><input type="text" name="writer" value="${empsch.writer }"/></td>
+					<td><input type="text" name="writer" value="${empsch.writer }" /></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td><input type="text" name="content" value="${empsch.content }" />
+					<td><input type="text" name="content"
+						value="${empsch.content }" />
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center;"><input
-						type="button" id="regbtn" value="등록" /> <input type="button"
+						type="button" id="regBtn" value="등록" /> <input type="button"
 						id="schBtn" value="검색" /></td>
 				</tr>
 			</table>
 		</form>
 		<table border>
 			<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
+				<th width="5%">번호</th>
+				<th width="50%">제목</th>
+				<th width="15%">작성자</th>
+				<th width="15%">작성일</th>
+				<th width="15%">조회수</th>
 			</tr>
-			<tr>
-				<td colspan="4">작성된 글이 없습니다!!</td>
-			</tr>
+			<c:forEach var="board" items="${list }">
+				<tr>
+					<td>${board.no }</td>
+					<td>${board.subject }</td>
+					<td>${board.writer }</td>
+					<td><fmt:formatDate value="${board.regdate }"/></td>
+					<td>${board.readcount }</td>
+				</tr>
+			</c:forEach>
+			<c:if test="${list.size() ==0 }">
+				<tr>
+					<td colspan="4">작성된 글이 없습니다!!</td>
+				</tr>
+			</c:if>
 		</table>
 </body>
 </html>

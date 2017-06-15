@@ -35,7 +35,7 @@
 	<!-- Repository interface 패키지 등록, default mybatis 연결 dao 인터페이스 패키지의 위치 지정
 	다수의 패키지 등록 시 ==>  , 구분자로 등록 가능.    ex) @@, @@@, @@@@ -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="springweb.c01_database.repository" />
+		<property name="basePackage" value="springweb.c01_database.repository, springweb.d01_board.repository" />
 	</bean>
 
 	<bean id="viewResolver"
