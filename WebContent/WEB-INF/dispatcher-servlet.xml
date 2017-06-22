@@ -37,11 +37,20 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="springweb.c01_database.repository, springweb.d01_board.repository" />
 	</bean>
+	<!-- 여러개의 ViewResolver 처리를 위해 bean이름(id) 으로 선언. Resolver를 우선순위로 처리함  -->
+	<bean id="bnViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"/><!-- bean 이름(id)으로 호출하는 resolver를 최우선  -->
+	</bean>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="" />
 		<property name="suffix" value=".jsp" /><!-- view 호출 시 , .jsp는 
 			생략 setSuffix("view단"+".jsp"); -->
+		<property name="order" value="1"/><!-- jsp는 차순위.. -->
 	</bean>
+	<!-- view를 호출하는데, 조립기에선 선언된 id가 있으면 해당 id에 맞는 viewResolver를 선택. 그 외에는 .jsp가 붙어서 jsp 화면을 호출한다  -->
+	<!-- 파일 업로드 viewResolver 처리  -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
 </beans>

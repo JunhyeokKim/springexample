@@ -32,8 +32,7 @@ public Board getReBoard(int no){
 		// 답글을 등록시, refno에 값이 있도록 처리..
 		reboard.setRefno(no);
 		reboard.setSubject("RE:"+reboard.getSubject());
-		reboard.setContent("\n\n\n\n====이전내용===\n"
-						+reboard.getContent());
+		reboard.setContent(reboard.getContent()+"\n\n===========이전내용==========\n");
 		return reboard;
 	} 	
 	public Board detailBoard(int no){
