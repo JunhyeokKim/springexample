@@ -5,16 +5,8 @@
 <mapper namespace="springweb.d01_board.repository.A01_BoardDao">
 	<resultMap type="board" id="boardResult"/>
 	<insert id="insertBoard" parameterType="board">
-		insert into board
-		values(board_seq.nextval,
-		0,
-		#{subject},
-		#{content},
-		#{pass},
-		#{writer},
-		0,
-		sysdate,
-		#{email})
+		insert into board values(board_seq.nextval,#{refno},
+			#{subject},#{content}, #{pass}, #{writer},0,sysdate,#{email} )
 	</insert>
 	<select id="listBoard" resultMap="boardResult"
 		 parameterType="schboard">
@@ -28,8 +20,23 @@
 		</if>
 		<if test="content!=null and content!=''">
 			and content like '%'|| #{content} ||'%'
-		</if>				
-		order by no desc
+		</if>
+		start with refno=0
+		connect by prior no=refno	
+		order siblings by no desc			
 	</select>
+	
+	<select id="getBoard" resultType="board" parameterType="int">
+	select * from board where no = #{no}
+	</select>
+	<select id="getReBoard" resultType="Board" parameterType="int">
+	select * from board where refno = #{no}
+	</select>
+	<update id="uptBoardCnt">
+		update board
+		set readcount=readcount+1
+		where no=#{no}
+	</update>
+	
 
 </mapper>

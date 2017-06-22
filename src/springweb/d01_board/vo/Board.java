@@ -1,7 +1,7 @@
 package springweb.d01_board.vo;
 
 import java.util.Date;
-// data list ¸ðµ¨ Å¬·¡½º
+//data list ¸ðµ¨  Å¬·¡½º
 public class Board {
 	private int no;
 	private int refno;
@@ -67,7 +67,5 @@ public class Board {
 		this.email = email;
 	}
 	
-	
-	
-	
 }
+

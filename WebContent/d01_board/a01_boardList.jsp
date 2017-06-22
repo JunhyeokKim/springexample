@@ -21,6 +21,15 @@
 		$("#regBtn").click(function() {
 			$(location).attr("href", "${path}/boardList.do?method=insert");
 		})
+		$(".data").dblclick(function() {
+			var no= $(this).children().html();
+			$(location).attr("href","${path}/boardList.do?method=detail&no="+no);
+		})
+		$("#initbtn").click(function(){
+			$("input[name=subject]").val("");
+			$("input[name=writer]").val("");
+			$("input[name=content]").val(""); 
+		})
 
 	})
 </script>
@@ -34,25 +43,29 @@
 				<tr>
 					<td>제목</td>
 					<td><input type="text" name="subject"
-						value="${empsch.subject }" /></td>
+						value="${sch.subject }" /></td>
 					<td>작성자</td>
-					<td><input type="text" name="writer" value="${empsch.writer }" /></td>
+					<td><input type="text" name="writer" value="${sch.writer }" /></td>
 				</tr>
 				<tr>
 					<td>내용</td>
 					<td><input type="text" name="content"
-						value="${empsch.content }" />
+						value="${sch.content }" />
 					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td colspan="4" style="text-align: center;"><input
 						type="button" id="regBtn" value="등록" /> <input type="button"
-						id="schBtn" value="검색" /></td>
+						id="schBtn" value="검색" />
+						<input type="button" id="initbtn" value="검색초기화"/></td>
 				</tr>
 			</table>
 		</form>
 		<table border>
+		<caption style="text-align:left">
+				총:${list.size()}건
+			</caption>
 			<tr>
 				<th width="5%">번호</th>
 				<th width="50%">제목</th>
@@ -61,7 +74,7 @@
 				<th width="15%">조회수</th>
 			</tr>
 			<c:forEach var="board" items="${list }">
-				<tr>
+				<tr class="data">
 					<td>${board.no }</td>
 					<td>${board.subject }</td>
 					<td>${board.writer }</td>
