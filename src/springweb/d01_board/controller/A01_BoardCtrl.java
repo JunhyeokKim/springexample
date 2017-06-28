@@ -14,10 +14,10 @@ import springweb.d01_board.vo.Board_Sch;
 
 @Controller
 @RequestMapping("/boardList.do")
-@SessionAttributes("sch")
+@SessionAttributes("boardsch")
 public class A01_BoardCtrl {
 
-	@ModelAttribute("sch")
+	@ModelAttribute("boardsch")
 	public Board_Sch Board_Sch(){
 		return new Board_Sch();
 	}	
@@ -28,7 +28,7 @@ public class A01_BoardCtrl {
 	// °Ô½ÃÆÇ list
 	// http://localhost:5080/springweb/boardList.do?method=list
 	@RequestMapping(params="method=list")
-	public String start(@ModelAttribute("sch") Board_Sch sch,
+	public String start(@ModelAttribute("boardsch") Board_Sch sch,
 							Model d){
 //		if(sch.getSubject()!=null){
 //			sch.setSubject(sch.getSubject()+"@");

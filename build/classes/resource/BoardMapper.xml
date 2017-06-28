@@ -10,7 +10,26 @@
 	</insert>
 	<select id="listBoard" resultMap="boardResult"
 		 parameterType="schboard">
-		select * from board
+		select * from(
+			select rownum cnt, level lv, c.* from board c
+			where 1=1
+			<if test="subject!=null and subject!=''">
+				and subject like '%'|| #{subject} ||'%'
+			</if>
+			<if test="writer!=null and writer!=''">
+				and writer like '%'|| #{writer} ||'%'
+			</if>
+			<if test="content!=null and content!=''">
+				and content like '%'|| #{content} ||'%'
+			</if>
+			start with refno=0
+			connect by prior no=refno	
+			order siblings by no desc)
+		where cnt between #{start} and #{end}			
+	</select>
+	<select id="totCnt" parameterType="schboard" resultType="int">
+		select count(*) 
+		from board 
 		where 1=1
 		<if test="subject!=null and subject!=''">
 			and subject like '%'|| #{subject} ||'%'
@@ -21,9 +40,6 @@
 		<if test="content!=null and content!=''">
 			and content like '%'|| #{content} ||'%'
 		</if>
-		start with refno=0
-		connect by prior no=refno	
-		order siblings by no desc			
 	</select>
 	
 	<select id="getBoard" resultType="board" parameterType="int">

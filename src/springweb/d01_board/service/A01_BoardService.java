@@ -19,6 +19,20 @@ public class A01_BoardService {
 	}
 
 	public ArrayList<Board> listBoard(Board_Sch sch) {
+		// 총 데이터 건수(db에서 로딩)
+		sch.setCount(dao.totCnt(sch));
+		// 한페이지에서 나타날 데이터 건수
+		// 초기 0 ==> 5
+		if(sch.getPageSize()==0){
+			sch.setPageSize(5);
+		}
+		if(sch.getCurPage()==0){
+			sch.setCurPage(1);
+		}
+		// 총 페이지 수
+		sch.setPageCount((int)Math.ceil(sch.getCount()/(double)sch.getPageSize()));
+		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
+		sch.setEnd(sch.getCurPage()*sch.getPageSize());
 		return dao.listBoard(sch);
 	}
 

@@ -30,8 +30,14 @@
 			$("input[name=writer]").val("");
 			$("input[name=content]").val(""); 
 		})
+		$("select[name=pageSize]").val(${boardsch.pageSize})
 
 	})
+	function go(curPage){
+		$("input[name=curPage]").val(curPage);
+		$("form").attr("action","${path}//boardList.do?method=list")
+		$("form").submit();
+	}
 </script>
 </head>
 <body>
@@ -43,14 +49,14 @@
 				<tr>
 					<td>제목</td>
 					<td><input type="text" name="subject"
-						value="${sch.subject }" /></td>
+						value="${boardsch.subject }" /></td>
 					<td>작성자</td>
-					<td><input type="text" name="writer" value="${sch.writer }" /></td>
+					<td><input type="text" name="writer" value="${boardsch.writer }" /></td>
 				</tr>
 				<tr>
 					<td>내용</td>
 					<td><input type="text" name="content"
-						value="${sch.content }" />
+						value="${boardsch.content }" />
 					<td></td>
 					<td></td>
 				</tr>
@@ -61,6 +67,13 @@
 						<input type="button" id="initbtn" value="검색초기화"/></td>
 				</tr>
 			</table>
+			페이지 크기 <select name="pageSize">
+						<option>3</option>
+						<option>5</option>
+						<option>10</option>
+						<option>20</option>
+					</select>
+					<input type="hidden" name="curPage" value="1"/>
 		</form>
 		<table border>
 		<caption style="text-align:left">
@@ -76,7 +89,15 @@
 			<c:forEach var="board" items="${list }">
 				<tr class="data">
 					<td>${board.no }</td>
-					<td>${board.subject }</td>
+					<td style="text-align: left">
+					<!-- 답글의 level만큼 공백과 답글이라는 이미지 표시  -->
+					<c:forEach begin="1" end="${board.lv}" varStatus="sts">
+					&nbsp;&nbsp;
+					<c:if test="${board.lv>1 and sts.last }">
+						☞
+					</c:if>
+					</c:forEach>
+					${board.subject }</td>
 					<td>${board.writer }</td>
 					<td><fmt:formatDate value="${board.regdate }"/></td>
 					<td>${board.readcount }</td>
@@ -88,5 +109,10 @@
 				</tr>
 			</c:if>
 		</table>
+		${board.pageCount }
+		<!-- 하단 page block -->
+		<c:forEach var="cnt" begin="1" end="${boardsch.pageCount }">
+			<a href="javascript:go(${cnt}) ">[${cnt}]</a>
+		</c:forEach>
 </body>
 </html>
